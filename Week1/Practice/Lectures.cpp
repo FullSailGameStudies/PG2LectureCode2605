@@ -6,7 +6,6 @@
 
 int main(int argc, char* args[])
 {
-
 	Day2 day2;
 
 	int menuSelection = 0;
