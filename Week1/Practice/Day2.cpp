@@ -7,10 +7,39 @@
 //
 // Part B-1.1: Add a method definition for SpawnZombies
 //
+void Day2::SpawnZombies(PG2Graphics& engine, std::vector<Zombie>& mobs, Player& player)
+{
+	//fill the vector w/ 5 zombies
+	//  randomize the xPos and yPos of each zombie (rand() % 10)
+	//  make sure the xPos and yPos does NOT match the player's position
+	//  create a zombie like this: Zombie( &engine, 0.5f, x, y);
+	int xPos, yPos;
+	int playerX = player.GetXPosition();
+	int playerY = player.GetYPosition();
+	for (int i = 0; i < 5; i++)
+	{
+		do
+		{
+			xPos = rand() % 10;
+			yPos = rand() % 10;
+		} while (xPos == playerX && yPos == playerY);
+
+		Zombie zeek(&engine, 0.5f, xPos, yPos);
+
+		mobs.push_back(zeek);
+	}
+}
 
 //
 // Part B-2.1: Add a method definition for RenderZombies
 //
+void Day2::RenderZombies(const std::vector<Zombie>& mobs) const
+{
+	for (const Zombie& zeek : mobs)
+	{
+		zeek.Render();
+	}
+}
 
 //
 // Part B-3.1: Add a method definition for EraseZombies
@@ -62,6 +91,7 @@ void Day2::PartB(int option)
 			//
 			// Part B-1.3 Call SpawnZombies
 			//
+			SpawnZombies(engine, mobs, player);
 
 			bool quit = false;
 			SDL_Event e;
@@ -91,6 +121,7 @@ void Day2::PartB(int option)
 							//
 							// Part B-1.3 Call SpawnZombies
 							//
+							SpawnZombies(engine, mobs, player);
 						}
 					}
 				}
@@ -102,6 +133,7 @@ void Day2::PartB(int option)
 				//
 				// Part B-2.3 call RenderZombies
 				//
+				RenderZombies(mobs);
 
 
 				player.Render();
@@ -113,3 +145,4 @@ void Day2::PartB(int option)
 	}
 	engine.Close();
 }
+

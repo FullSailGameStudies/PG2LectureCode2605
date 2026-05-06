@@ -171,7 +171,7 @@ void Player::MoveRight()
 	AddUndo("MoveRight");
 }
 
-bool Player::CanMove(Direction direction)
+bool Player::CanMove(Direction direction) const
 {
 	bool canMove = false;
 	switch (direction)
@@ -286,7 +286,7 @@ void Player::StoreItems(Item itemToStore, std::vector<Item>& chest)
 	}
 }
 
-bool Player::CanMove(int xPos, int yPos)
+bool Player::CanMove(int xPos, int yPos) const
 {
 	if (xPos < 0 || yPos < 0 || xPos > cols_ - 1 || yPos > rows_ - 1)
 		return false;

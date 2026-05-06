@@ -4,8 +4,76 @@
 #include <Console.h>
 #include <Input.h>
 
+//int Increment(int n) //pass-by-value (COPY)
+//{
+//
+//}
+void Increment(int& num)//pass-by-reference (ALIAS)
+{
+	num++;
+}
+void Print(int num)
+{
+
+}
+
+void Print(std::vector<int> nums)
+{
+
+}
+
+void MinMaxAvg(const std::vector<int>& nums, int& min, int& max, int& avg)
+{
+	min = max = avg = 0;
+	if (nums.empty()) return;
+
+	int sum = 0;
+	min = max = sum = nums[0];
+	for (int i = 1; i < nums.size(); i++)
+	{
+		sum += nums.at(i);
+		if (nums[i] < min) min = nums[i];
+		if (nums[i] > max) max = nums[i]; 
+	}
+	avg = sum / nums.size();
+}
+// why use pass-by-reference?
+//  1) to prevent a copy
+//  2) to allow one scope to access variables in another scope
+// 
+// rules to use pass-by-reference:
+// 1) if the parameter is a class (not a basic data type)
+// 2) when you need to change a variable in a different scope
+// 3) when I need more than 1 return value
+void Print(const std::vector<int>& nums)
+{
+
+}
+
+float Increment(float copyOfPI)
+{
+	copyOfPI++;
+	return copyOfPI;
+}
+
+const float PI = 3.14159265f;
+
 int main(int argc, char* args[])
 {
+	Increment(PI);
+	std::vector<int> nummies{ 1,2,3,4,5,6,7,8,9 };
+	int minNum, maxNum, avgNum;
+	MinMaxAvg(nummies, minNum, maxNum, avgNum);
+	std::cout << "Min: " << minNum << "\n";
+	std::cout << "Max: " << maxNum << "\n";
+	std::cout << "Avg: " << avgNum << "\n";
+	int bruce = 5;
+	Increment(bruce);//int& num = bruce;
+	std::cout << "Bruce: " << bruce << "\n";
+	int& batman = bruce;
+	batman = 100;
+	std::cout << "Bruce: " << bruce << "\n";
+
 	Day2 day2;
 
 	int menuSelection = 0;
@@ -88,7 +156,7 @@ int main(int argc, char* args[])
 			//	Print the age that the user enters.
 			//	Open the Input.h file(look in Misc / Input in Solution Explorer) to see how the GetInteger is declared.
 			//
-			int age = Input::GetInteger("What is your age?", 0, 120);
+			const int age = Input::GetInteger("What is your age?", 0, 120);
 			std::cout << "Your age is " << age << ". weird.\n";
 			break;
 		}

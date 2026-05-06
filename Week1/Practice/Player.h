@@ -41,10 +41,10 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
-	bool CanMove(Direction direction);
+	bool CanMove(Direction direction) const;
 
-	int GetXPosition() { return xPosition_; }
-	int GetYPosition() { return yPosition_; }
+	int GetXPosition() const { return xPosition_; }
+	int GetYPosition() const { return yPosition_; }
 
 	int Size() { return static_cast<int>(width_ * scale_); }
 
@@ -62,7 +62,7 @@ public:
 
 private:
 
-	bool CanMove(int xPos, int yPos);
+	bool CanMove(int xPos, int yPos) const;
 	bool canAddAction_;
 
 	//The dimensions of the player
