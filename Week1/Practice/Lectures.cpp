@@ -62,6 +62,7 @@ int main(int argc, char* args[])
 {
 	Increment(PI);
 	std::vector<int> nummies{ 1,2,3,4,5,6,7,8,9 };
+	nummies.erase(nummies.begin() + 5);//requires an iterator
 	int minNum, maxNum, avgNum;
 	MinMaxAvg(nummies, minNum, maxNum, avgNum);
 	std::cout << "Min: " << minNum << "\n";
