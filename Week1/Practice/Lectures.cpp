@@ -12,16 +12,6 @@ void Increment(int& num)//pass-by-reference (ALIAS)
 {
 	num++;
 }
-void Print(int num)
-{
-
-}
-
-void Print(std::vector<int> nums)
-{
-
-}
-
 void MinMaxAvg(const std::vector<int>& nums, int& min, int& max, int& avg)
 {
 	min = max = avg = 0;
@@ -45,9 +35,20 @@ void MinMaxAvg(const std::vector<int>& nums, int& min, int& max, int& avg)
 // 1) if the parameter is a class (not a basic data type)
 // 2) when you need to change a variable in a different scope
 // 3) when I need more than 1 return value
-void Print(const std::vector<int>& nums)
+void Print(const std::vector<int>& nums, int numberToShow = 0)
 {
-
+	//iterator loop
+	int counter = 0;
+	std::cout << "numbers:\n";
+	for (auto it = nums.begin(); it != nums.end(); it++)
+	{
+		//`*it` to get to the int that it points to
+		std::cout << *it << "\n";
+		if (numberToShow != 0 && ++counter == numberToShow)
+		{
+			break;
+		}
+	}
 }
 
 float Increment(float copyOfPI)
@@ -58,10 +59,29 @@ float Increment(float copyOfPI)
 
 const float PI = 3.14159265f;
 
+void Info(const std::vector<int>& nums)
+{
+	//size() - how many items are in the vector
+	//capacity() - how big the internal array is
+	//size <= capacity
+	std::cout << "size: " << nums.size() << "/" << nums.capacity() << "\n";
+}
 int main(int argc, char* args[])
 {
 	Increment(PI);
-	std::vector<int> nummies{ 1,2,3,4,5,6,7,8,9 };
+	std::vector<int> nummies;
+	nummies.reserve(10);
+	Info(nummies); // 0/1?
+	for (int i = 0; i < 10; i++)
+	{
+		nummies.push_back(i);
+		Info(nummies);
+	}
+
+	Print(nummies);
+	Print(nummies, 3);
+
+
 	nummies.erase(nummies.begin() + 5);//requires an iterator
 	int minNum, maxNum, avgNum;
 	MinMaxAvg(nummies, minNum, maxNum, avgNum);
