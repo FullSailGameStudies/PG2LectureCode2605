@@ -5,9 +5,32 @@
 #include "Day6.h"
 #include <Input.h>
 
+//a recursive LOOP
+// they need to be determinant loops
+//we use recursion when...
+//1) we know how times it will loop
+//2) and the depth of the recursion is manageable
+//good for problems you can break down into smaller versions
+void PrintMessage(int i = 0)
+{
+	//we need some kind of EXIT condition (base case) to stop the loop
+	//if we don't it WILL crash
+	if (i < 5)
+	{
+		std::cout << "Batman is the best.\n";
+		i++;
+		PrintMessage(i);//recursive case. when the method calls itself.
+		std::cout << "Robin is expendable.\n";
+	}
+}
 
 int main(int argc, char* args[])
 {
+	for (int i = 0; i < 5; i++)
+	{
+
+	}
+	PrintMessage();
 	srand(static_cast<unsigned int>(time(NULL)));
 
 	std::string hello = "Hello Week 2!";

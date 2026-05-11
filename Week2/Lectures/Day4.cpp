@@ -66,8 +66,31 @@ void Day4::RecursionExample()
 //
 // Part A-1.1
 //
+int PostIncrement(int& i)
+{
+	int temp = i;
+	i++;
+	return temp;
+}
+int PreIncrement(int& i)
+{
+	++i;
+	return i;
+}
+void Bats(int i = 0)
+{
+	if (i < 100)
+	{
+		std::cout << (char)78 << (char)65 << ' ';
+		//i++ is POST-increment
+		//++i is PRE-increment
+		i++;
+		Bats(i);
+	}
+}
 void Day4::PartA_1_1()
 {
+	Bats();
 	char c[] = { '\n', 66, 65, 84, 77, 65, 78, 33, 33 };
 	for (auto ch : c) std::cout << ch;
 
@@ -79,8 +102,15 @@ void Day4::PartA_1_1()
 //
 // Part A-1.2
 //
+void ReverseWord(const std::string& word, int index = 0)
+{
+	if (index >= word.size()) return;
+	ReverseWord(word, index + 1);
+	std::cout << word[index];
+}
 void Day4::PartA_1_2()
 {
+	ReverseWord("Robin");
 	std::cout << "\n";
 }
 
