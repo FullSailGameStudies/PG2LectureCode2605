@@ -110,17 +110,9 @@ void Day5::PartB_2(int section)
 	{
 		Grouper grouper;
 
-		std::vector<Light> redLights;
-		redLights.reserve(48 * 48);
-		grouper.MakeRedLights(redLights);
-
 		std::vector<Light> allLights;
 		allLights.reserve(12 * 12);
 		grouper.MakeLights(allLights);
-
-		std::vector<Light> greenLights;
-		greenLights.reserve(51);
-		grouper.MakeGreenLights(greenLights);
 
 
 		std::map<ColorChannel, std::vector<Light>> groupedColors;
@@ -128,6 +120,37 @@ void Day5::PartB_2(int section)
 		//
 		// TODO: (Lecture) Part B-2.1 fill the std::map
 		// 
+		//Light l{ 255,0,0 };
+		for (const auto& light : allLights)
+		{
+			ColorChannel currentChannel;
+			if (light.red > light.green && light.red > light.blue)
+				currentChannel = ColorChannel::RED;
+			else if (light.green > light.red && light.green > light.blue)
+				currentChannel = ColorChannel::GREEN;
+			else 
+				currentChannel = ColorChannel::BLUE;
+
+			//call find on the map to see if currentChannel is already there
+			auto foundChannel = groupedColors.find(currentChannel);
+			if (foundChannel == groupedColors.end()) //NOT FOUND
+			{
+				//create a vector for the current light
+				std::vector<Light> newLights;
+				newLights.push_back(light);
+
+				//add the vector to the map for the current channel
+				groupedColors[currentChannel] = newLights;
+			}
+			else //FOUND
+			{
+				//add the current light to the vector in the key-value pair
+				//(HINT: use the iterator to access the vector)
+				//the vector is the `second` on the iterator
+				std::vector<Light>& theVector = foundChannel->second;
+				theVector.push_back(light);
+			}
+		}
 
 
 		switch (section)

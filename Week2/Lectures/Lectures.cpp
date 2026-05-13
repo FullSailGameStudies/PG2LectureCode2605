@@ -4,6 +4,8 @@
 #include "Day5.h"
 #include "Day6.h"
 #include <Input.h>
+#include <map>
+#include <iomanip>
 
 //a recursive LOOP
 // they need to be determinant loops
@@ -26,10 +28,77 @@ void PrintMessage(int i = 0)
 
 int main(int argc, char* args[])
 {
-	for (int i = 0; i < 5; i++)
-	{
+	std::map<std::string,float> grades;
+	//2 ways to add data
+	// 1) "easy" way - map[key] = value
+	// 2) "not-easy" way - map.insert(keyvaluepair)
 
+	grades["Bruce"] = 100.0f;
+	grades["Robin"] = 65.0f;
+	grades["Robin"] = 70.0f;//overwrites the old value
+
+	std::pair<std::string, float> itemToInsert =
+		std::make_pair("Alfred", 75.0f);
+	auto wasInserted = grades.insert(itemToInsert);
+	//pair objects have 2 parts: first and second
+	itemToInsert.second = 80.0f;
+	wasInserted = grades.insert(itemToInsert);//will NOT overwrite an existing value
+	if (wasInserted.second == false)
+		std::cout << "Student is already in the course. Do you want to change their grade?\n";
+
+	//how to access a value using the key
+	float aGrade = grades["Robin"];
+	std::cout << "Robin has a grade of " << aGrade << "\n";
+
+	//call the find method to lookup a key
+	auto foundStudent = grades.find("Joker");
+	//if it returns the end(), it did NOT find it
+	if (foundStudent == grades.end())
+	{
+		std::cout << "Joker is not in the class.\n";
 	}
+	else //it found the key
+	{
+		aGrade = grades["Joker"];//will add Joker with a default value
+		std::cout << "Joker has a grade of " << aGrade << "\n";
+	}
+
+	//Looping
+	// use a range-based loop OR an iterator loop
+	for (auto it = grades.begin(); it != grades.end(); it++)
+	{
+		//the iterator points to the key-value PAIR
+		std::cout << it->first << " " << it->second << "\n";
+	}
+	for (auto& student : grades)
+	{
+		std::cout << student.first << " " << student.second << "\n";
+	}
+	grades.clear();	
+	std::vector<std::string> students{
+		"Garrett","Christian","Tevin","Zion","Paul","Michael","Byron","Brical","Carson","Darian","Emily","Troy"
+	};
+	srand(time(NULL));
+	for (auto& s : students)
+	{
+		grades[s] = rand() % 10001 / 100.0f;
+	}
+
+	//use structured bindings
+	std::cout << "\n\nPG2 2506\n";
+	for (auto& [studentName,studentGrade] : grades)
+	{
+		std::cout << std::setw(10) << std::left << studentName << " ";
+		Console::SetForegroundColor(
+			(studentGrade < 59.5) ? ConsoleColor::Red :
+			(studentGrade < 69.5) ? ConsoleColor::Yellow :
+			(studentGrade < 79.5) ? ConsoleColor::Magenta :
+			(studentGrade < 89.5) ? ConsoleColor::Cyan :
+			ConsoleColor::Green);
+		std::cout << std::setw(7) << std::right << studentGrade << "\n";
+		Console::Reset();
+	}
+
 	PrintMessage();
 	srand(static_cast<unsigned int>(time(NULL)));
 
