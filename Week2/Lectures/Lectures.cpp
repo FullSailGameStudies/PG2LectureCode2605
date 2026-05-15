@@ -63,6 +63,26 @@ int main(int argc, char* args[])
 		std::cout << "Joker has a grade of " << aGrade << "\n";
 	}
 
+	std::string name = "Robin";
+	auto foundKeyValuePair = grades.find(name);
+	if (foundKeyValuePair == grades.end()) //not found
+	{
+		std::cout << name << " was not found.\n";
+	}
+	else
+	{
+		//iterator points to a key-value that is in the map
+		//pair objects have 2 parts: first and second
+		//for the key-value pair, first is the key and second is the value
+		std::cout << foundKeyValuePair->first << " has a grade of ";
+		std::cout << foundKeyValuePair->second << ".\n";
+		//grades.erase(name);//causes another key lookup
+		grades.erase(foundKeyValuePair);//better performance
+
+		//IF you have the iterator, use the iterator
+		//don't do another key lookup
+	}
+
 	//Looping
 	// use a range-based loop OR an iterator loop
 	for (auto it = grades.begin(); it != grades.end(); it++)
