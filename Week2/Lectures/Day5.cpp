@@ -165,6 +165,11 @@ void Day5::PartB_2(int section)
 			// TODO: (Lecture) Part B-2.2 loop over the std::map
 			//
 
+			for (auto& [channel, channelLights] : groupedColors)
+			{
+				grouper.DrawLights(screenMap, channelLights, columnRange, column, row);
+			}
+
 
 			//Update screen
 			engine.Present();
