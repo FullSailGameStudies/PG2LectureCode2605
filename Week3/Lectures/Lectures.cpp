@@ -4,10 +4,25 @@
 #include "Day8.h"
 #include "Day9.h"
 #include "Input.h"
+#include <Player.h>
+#include <Card.h>
+#include <Color.h>
 
 
 int main(int argc, char* args[])
 {
+	Color redColor;
+	redColor.red = 255;
+	redColor.green = 0;
+	redColor.blue = 0;
+	Color blueColor;
+	Card aceSpades("A", "Spades");
+
+	//every time you create a class object, you are calling a constructor
+	Player p1;
+	p1.SetName("Batman");
+	p1.Health(1.0f);
+	std::cout << "Player 1: " << p1.GetName() << " " << p1.Health() << "\n";
     std::string hello = "Hello Week 3!";
     for (auto& ch : hello)
     {

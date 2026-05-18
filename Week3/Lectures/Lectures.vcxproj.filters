@@ -134,6 +134,9 @@
     <ClInclude Include="Deck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="cards_02.png">
